@@ -1,7 +1,6 @@
 @foo
 Feature: Playwright multi docs
 
-
   Background: Navigation
     Given Go to the playwright website
 
@@ -11,7 +10,7 @@ Feature: Playwright multi docs
     When Change theme to "<ThemeTwo>" mode
     Then Snapshot "<ThemeTwo>"
 
-    Examples:
+    Examples: 
       | ThemeOne | ThemeTwo |
       | light    | dark     |
       | dark     | light    |
