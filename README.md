@@ -9,12 +9,71 @@ This repository is based on the [Cucumber-typescript-starter](https://github.com
 ## What's inside
 
 - Typescript setup for writing steps with eslint/typescript and prettier
-- Launching of Playwright browser before running all tests
+
+_features_:
+
+Features (Scenarios) are in [features]
+
+_reports_:
+
+Reports will be generated after the test execution
+
+_screenshots_:
+
+Screenshots will be stored after the test execution
+
+_src/steps_:
+
+TypeScript step definitions are in [src/steps]
+
+_src/support/reporters_:
+
+Allure report
+
+_support/common-hooks.js_:
+
+Before all tests:
+
+- Launching Playwright browser - chromium by default
 - Launching new context and page for each scenario
 - Running feature with video recording option
-- Report generated with last good image attached
-- Allure reports
+- Storing trace for the scenario
+
+After all tests:
+
+- Close the page
+- Close context
+- Close Browser
+- Strore trace
+
+_support/config.ts_:
+
+Playwright configurations: browser options, BASE_URL and so on
+
+_support/custom-world.ts_:
+
+Define runtime configuration
+
+Support/utils:
+
 - Utilies function to help you with writing steps
+
+_.env_
+Provide env variables (dotnet)
+
+_cucumber.mjs_:
+Set up configurations:
+
+- cucumber/pretty-formatter and Cucumber HTML - by default
+- Report generated with last good image attached
+- Allure report - if env.USE_ALLURE=true
+
+_htmlReortGenerator.js_:
+
+Cucumber HTML Report
+
+_.vscode/launch.json_:
+
 - VScode configuration to debug a single feature or an only scenario (run when located on the feature file)
 
 ## Usage
@@ -27,16 +86,18 @@ open project on VS
 
 npm install
 npm install typescript --save-dev
-npx playwright install
-
-TypeScript step definitions are in [src/steps](src/steps)
-
-Features (Scenarios) are in [features](features)
+npm install playwright install
+npm install @playwright/test
+npm install dotenv --save --force
+npm install--save-dev -ts-node tsconfig-paths
+npm install cucumber-html-reporter
+npm install @types/cucumber-html-reporter
+npm install -g allure-commandline --save-dev
 
 ## To run your tests
 
 `npm run test` or `npx cucumber-js` runs all tests
-`npm run test <feature name>` or `npx cucumber-js <feature name>` run the single feature
+`npm run test <features/feature name>` or `npx cucumber-js <features/feature name>` run the single feature
 
 ## Browser selection
 
@@ -54,10 +115,6 @@ set BROWSER=firefox
 npm run test
 ```
 
-## Working with Page Objects
-
-I am not fond of the Page Object Model (POM) for testing. It feels like a leftover from Java world, and I do not think it fits the Javascript world. However, you can check [this PR](https://github.com/Tallyb/cucumber-playwright/pull/95/files) to see POM implementation.
-
 ## Debugging Features
 
 ### From CLI
@@ -74,18 +131,6 @@ I am not fond of the Page Object Model (POM) for testing. It feels like a leftov
 
 To stop the feature, you can add the `Then debug` step inside your feature. It will stop your debugger.
 
-## To choose a reporter
-
-The last reporter/formatter found on the cucumber-js command-line wins:
-
-```text
---format summary --format @cucumber/pretty-formatter --format cucumber-console-formatter
-```
-
-In [cucumber.mjs](cucumber.mjs) file, modify the options.
-
-To use Allure reporting, you can run with env param: `USE_ALLURE=1`, and then use the `npm run allure` to show the report.
-
 ## To ignore a scenario
 
 - tag the scenario with `@ignore`
@@ -98,14 +143,10 @@ To use Allure reporting, you can run with env param: `USE_ALLURE=1`, and then us
 
 - run the command `npm run steps-usage`.
 
-## To view the html report of the last run
-
-- run the command `npm run report`.
-
-### At least in Lubuntu 20.04 to open the html report
-
-- Modify the `package.json` in `"report": "xdg-open reports/report.html"`
-
 ## To view allure report
 
-- run the command `npm run allure`.
+To use Allure reporting, you can run with env param: `USE_ALLURE=1`, and then use the `npm run allure` to show the report.
+
+## To view Cucumber HTML report
+
+-run the command 'node ./htmlReportGenerator.js'
