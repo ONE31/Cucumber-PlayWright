@@ -58,10 +58,12 @@ Support/utils:
 
 - Utilies function to help you with writing steps
 
-_.env_
+_.env_:
+
 Provide env variables (dotnet)
 
 _cucumber.mjs_:
+
 Set up configurations:
 
 - cucumber/pretty-formatter and Cucumber HTML - by default
@@ -76,7 +78,7 @@ _.vscode/launch.json_:
 
 - VScode configuration to debug a single feature or an only scenario (run when located on the feature file)
 
-## Usage
+## How to use this project
 
 Create a repo based on this template and start writing your tests.
 
@@ -94,11 +96,6 @@ npm install cucumber-html-reporter
 npm install @types/cucumber-html-reporter
 npm install -g allure-commandline --save-dev
 
-## To run your tests
-
-`npm run test` or `npx cucumber-js` runs all tests
-`npm run test <features/feature name>` or `npx cucumber-js <features/feature name>` run the single feature
-
 ## Browser selection
 
 By default we will use chromium. You can define an envrionment variable called BROWSER and
@@ -114,6 +111,15 @@ One Windows you need to write
 set BROWSER=firefox
 npm run test
 ```
+
+## To run your tests
+
+`npm run test` or `npx cucumber-js` runs all tests
+`npm run test <features/feature name>` or `npx cucumber-js <features/feature name>` run the single feature
+
+## To ignore a scenario
+
+- tag the scenario with `@ignore`
 
 ## Debugging Features
 
@@ -131,9 +137,13 @@ npm run test
 
 To stop the feature, you can add the `Then debug` step inside your feature. It will stop your debugger.
 
-## To ignore a scenario
+## To view allure report
 
-- tag the scenario with `@ignore`
+To use Allure reporting, you can run with env param: `USE_ALLURE=1`, and then use the `npm run allure` to show the report.
+
+## To view Cucumber HTML report
+
+-run the command 'node ./htmlReportGenerator.js'
 
 ## To check for typescript, linting and gherkin errors
 
@@ -142,11 +152,3 @@ To stop the feature, you can add the `Then debug` step inside your feature. It w
 ## To view the steps usage
 
 - run the command `npm run steps-usage`.
-
-## To view allure report
-
-To use Allure reporting, you can run with env param: `USE_ALLURE=1`, and then use the `npm run allure` to show the report.
-
-## To view Cucumber HTML report
-
--run the command 'node ./htmlReportGenerator.js'
