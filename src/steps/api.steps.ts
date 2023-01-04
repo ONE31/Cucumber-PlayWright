@@ -1,3 +1,4 @@
+import { getAccessToken } from '../utils/api_helper';
 import { expect, request } from '@playwright/test';
 import { Given, Then, When } from '@cucumber/cucumber';
 import * as dotenv from 'dotenv';
@@ -7,32 +8,12 @@ dotenv.config();
 //const rm2_scope = env.RM2_API_SCOPE;
 
 Given('I requested an access_token for GetHelp Portal API', async () => {
-  const oauthURL: string = env.OAUTH_URI as string;
   const gethelp_api_scope: string = env.GETHELP_API_SCOPE as string;
   const client_secret: string = env.SECRETID as string;
   const client_id: string = env.CLIENTID as string;
 
-  const context = await request.newContext({
-    baseURL: oauthURL,
-  });
-  const _response = await context.post('', {
-    form: {
-      grant_type: 'client_credentials',
-      scope: gethelp_api_scope,
-      client_secret: client_secret,
-      client_id: client_id,
-    },
-    headers: {
-      'content-type': 'application/x-www-form-urlencoded',
-    },
-  });
-  expect(_response.status(), 'Checking 200 Response').toBe(200);
-  expect(_response.ok()).toBeTruthy;
-
-  // get 'token' value from response's body data
-  const res = await _response.json();
-  const responseToken = res.access_token;
-  env.ACCESS_TOKEN = responseToken;
+  const token: string = await getAccessToken(client_secret, client_id, gethelp_api_scope);
+  env.ACCESS_TOKEN = token;
 });
 
 When('I send Get request to GetHelp Portal with the uri path {string}', async (path) => {
