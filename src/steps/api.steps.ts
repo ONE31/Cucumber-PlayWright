@@ -29,8 +29,8 @@ When('I send Get request to GetHelp Portal with the uri path {string}', async (p
   });
 
   //Store Status Code and Response Body to validate on the next steps
-  const resBody = await _response.json();
-  env.RESPONSE_BODY = resBody.toString();
+  //const resBody = await _response.json();
+  //env.RESPONSE_BODY = resBody.toString();
 
   const res: number = _response.status();
   env.RESPONSE_STATUS = res.toString();

@@ -16,3 +16,8 @@ Feature: Test GetHelp Portal API
     Given I requested an access_token for GetHelp Portal API
     And   I send Get request to GetHelp Portal with the uri path "/odata/userdomain"
     Then  Response status code is "200"
+
+  Scenario: Successfully Get User Domain
+    Given I requested an access_token for GetHelp Portal API
+    And   I send Get request to GetHelp Portal with the uri path "userdomain"
+    Then  Response status code is "404"
